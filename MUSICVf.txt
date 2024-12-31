@@ -1,0 +1,81 @@
+-- مكتبة واجهة المستخدم
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextBox = Instance.new("TextBox")
+local PlayButton = Instance.new("TextButton")
+local CloseButton = Instance.new("TextButton")
+local DracoLabel = Instance.new("TextLabel")
+
+-- خصائص ScreenGui
+ScreenGui.Name = "MusicPlayer"
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ResetOnSpawn = false
+
+-- خصائص الإطار (الواجهة)
+Frame.Name = "MainFrame"
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Frame.Position = UDim2.new(0.3, 0, 0.3, 0)
+Frame.Size = UDim2.new(0, 400, 0, 200)
+Frame.Active = true
+Frame.Draggable = true
+
+-- حقل إدخال كود الأغنية
+TextBox.Parent = Frame
+TextBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.Position = UDim2.new(0.1, 0, 0.3, 0)
+TextBox.Size = UDim2.new(0, 300, 0, 50)
+TextBox.Font = Enum.Font.SourceSans
+TextBox.PlaceholderText = "أدخل كود الأغنية هنا"
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextBox.TextScaled = true
+
+-- زر التشغيل
+PlayButton.Name = "PlayButton"
+PlayButton.Parent = Frame
+PlayButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+PlayButton.Position = UDim2.new(0.35, 0, 0.6, 0)
+PlayButton.Size = UDim2.new(0, 150, 0, 50)
+PlayButton.Font = Enum.Font.Fantasy
+PlayButton.Text = "تشغيل"
+PlayButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlayButton.TextScaled = true
+
+-- زر الإغلاق
+CloseButton.Name = "CloseButton"
+CloseButton.Parent = Frame
+CloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+CloseButton.Position = UDim2.new(0.9, -25, 0, 0)
+CloseButton.Size = UDim2.new(0, 25, 0, 25)
+CloseButton.Font = Enum.Font.SourceSans
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+CloseButton.TextScaled = true
+
+-- شعار Draco المزخرف
+DracoLabel.Name = "DracoLabel"
+DracoLabel.Parent = Frame
+DracoLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+DracoLabel.Position = UDim2.new(0, 10, 0, 0)
+DracoLabel.Size = UDim2.new(0, 150, 0, 30)
+DracoLabel.Font = Enum.Font.Fantasy
+DracoLabel.Text = "★ DRACO ★"
+DracoLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+DracoLabel.TextScaled = true
+DracoLabel.TextStrokeTransparency = 0.5
+
+-- تشغيل الأغنية عند الضغط على زر التشغيل
+PlayButton.MouseButton1Click:Connect(function()
+    local soundId = TextBox.Text
+    if soundId ~= "" then
+        local sound = Instance.new("Sound", game.Players.LocalPlayer.Character)
+        sound.SoundId = "rbxassetid://" .. soundId
+        sound:Play()
+    end
+end)
+
+-- إغلاق الواجهة عند الضغط على زر الإغلاق
+CloseButton.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
